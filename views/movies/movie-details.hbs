@@ -1,0 +1,17 @@
+<h1>Aqui los detalles de las pelis</h1>
+
+<h3>Titulo: {{detalles.title}}</h3>
+<h3>Genero: {{detalles.genre}}</h3>
+<h3>Trama: {{detalles.plot}}</h3>
+<h3>Elenco</h3>
+<ul>
+
+  {{#each detalles.cast}}
+    <li>
+      <p>Nombre: {{this.name}}</p>
+      <p>Ocupacion: {{this.occupation}}</p>
+      <p>Frase: {{this.catchPhrase}}</p>
+    </li>
+  {{/each}}
+
+</ul>
