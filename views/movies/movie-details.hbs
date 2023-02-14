@@ -7,11 +7,14 @@
 <ul>
 
   {{#each detalles.cast}}
-    <li>
-      <p>Nombre: {{this.name}}</p>
-      <p>Ocupacion: {{this.occupation}}</p>
-      <p>Frase: {{this.catchPhrase}}</p>
-    </li>
+  <li>
+    <p>Nombre: {{this.name}}</p>
+    <p>Ocupacion: {{this.occupation}}</p>
+    <p>Frase: {{this.catchPhrase}}</p>
+  </li>
   {{/each}}
 
+  <form action="/movies/{{detalles._id}}/delete" method="post">
+    <button>DELETE</button>
+  </form>
 </ul>

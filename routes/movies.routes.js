@@ -42,11 +42,19 @@ router.get("/:movieId", async (req, res, next) => {
     const { movieId } = req.params;
 
     const response = await Movie.findById(movieId).populate("cast");
-    console.log(response);
 
     res.render("movies/movie-details.hbs", {
       detalles: response,
     });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post("/:movieId/delete", async (req, res, next) => {
+  try {
+    await Movie.findByIdAndDelete(req.params.movieId);
+    res.redirect("/movies");
   } catch (error) {
     next(error);
   }
