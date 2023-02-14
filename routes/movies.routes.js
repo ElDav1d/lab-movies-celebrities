@@ -60,4 +60,17 @@ router.post("/:movieId/delete", async (req, res, next) => {
   }
 });
 
+router.get("/:movieId/edit", async (req, res, next) => {
+  try {
+    const response = await Movie.findById(req.params.movieId).populate(
+      "cast",
+      "name"
+    );
+
+    res.render("movies/edit-movie.hbs", response);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
