@@ -8,4 +8,8 @@ router.get("/", (req, res, next) => {
 const celebrityRoutes = require("./celebrities.routes");
 router.use("/celebrities", celebrityRoutes);
 
+
+const movieRoute = require("./movies.routes");
+router.use("/movies", movieRoute);
+
 module.exports = router;
