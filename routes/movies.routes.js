@@ -2,13 +2,14 @@ const router = require("express").Router();
 const Celebrity = require("../models/Celebrity.model");
 const Movie = require("../models/Movie.model.js");
 
-router.get("/" , (req,res,next)=>{
-    try {
-        
-    } catch (error) {
-        next (error)
-    }
-})
+router.get("/", async (req, res, next) => {
+  try {
+    const response = await Movie.find();
+    res.render("movies/movies.hbs", { allMovies: response });
+  } catch (error) {
+    next(error);
+  }
+});
 
 router.get("/create", async (req, res, next) => {
   try {
@@ -24,19 +25,16 @@ router.get("/create", async (req, res, next) => {
   res.render("movies/new-movie.hbs");
 });
 
-router.post("/create" , async (req,res,next)=>{
-    
-    try {
+router.post("/create", async (req, res, next) => {
+  try {
+    const { title, genre, plot, cast } = req.body;
 
-        const {title,genre,plot,cast} = req.body
+    await Movie.create({ title, genre, plot, cast });
 
-        await Movie.create({title,genre,plot,cast})
-
-        res.redirect("/movies")
-        
-    } catch (error) {
-        next (error)
-    }
-})
+    res.redirect("/movies");
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;

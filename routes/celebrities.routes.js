@@ -25,7 +25,7 @@ router.get("/create", async (req, res, next) => {
 router.post("/create", async (req, res, next) => {
   const { name, occupation, catchPhrase } = req.body;
   try {
-    const response = await Celebrity.create({ name, occupation, catchPhrase });
+    await Celebrity.create({ name, occupation, catchPhrase });
 
     res.redirect("/celebrities");
   } catch (error) {

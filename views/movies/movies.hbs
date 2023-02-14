@@ -1,1 +1,9 @@
 <h1>Aqui tienen que ir nuestras peliculas</h1>
+
+<ul>
+    {{#each allMovies}}
+    <li>
+        {{this.title}}
+    </li>
+    {{/each}}
+</ul>
