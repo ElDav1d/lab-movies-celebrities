@@ -73,4 +73,24 @@ router.get("/:movieId/edit", async (req, res, next) => {
   }
 });
 
+router.post("/:movieId/edit" , async (req, res, next)=>{
+
+  const {movieId} = req.params
+  const {title,genre,plot,cast} = req.body
+  // console.log(req.body.cast)
+  try {
+
+    await Movie.findByIdAndUpdate(movieId , {title,genre,plot,cast})
+    // .populate("cast" , "name")
+
+
+    res.redirect(`/movies/${movieId}`)
+    
+  } catch (error) {
+    next(error)
+  }
+
+
+})
+
 module.exports = router;
