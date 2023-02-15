@@ -26,9 +26,8 @@ router.get("/create", async (req, res, next) => {
 });
 
 router.post("/create", async (req, res, next) => {
+  const { title, genre, plot, cast } = req.body;
   try {
-    const { title, genre, plot, cast } = req.body;
-
     await Movie.create({ title, genre, plot, cast });
 
     res.redirect("/movies");
@@ -39,13 +38,11 @@ router.post("/create", async (req, res, next) => {
 
 router.get("/:movieId", async (req, res, next) => {
   try {
-    const { movieId } = req.params;
+    const movieDetails = await Movie.findById(req.params.movieId).populate(
+      "cast"
+    );
 
-    const response = await Movie.findById(movieId).populate("cast");
-
-    res.render("movies/movie-details.hbs", {
-      detalles: response,
-    });
+    res.render("movies/movie-details.hbs", movieDetails);
   } catch (error) {
     next(error);
   }
@@ -73,24 +70,18 @@ router.get("/:movieId/edit", async (req, res, next) => {
   }
 });
 
-router.post("/:movieId/edit" , async (req, res, next)=>{
-
-  const {movieId} = req.params
-  const {title,genre,plot,cast} = req.body
+router.post("/:movieId/edit", async (req, res, next) => {
+  const { movieId } = req.params;
+  const { title, genre, plot, cast } = req.body;
   // console.log(req.body.cast)
   try {
-
-    await Movie.findByIdAndUpdate(movieId , {title,genre,plot,cast})
+    await Movie.findByIdAndUpdate(movieId, { title, genre, plot, cast });
     // .populate("cast" , "name")
 
-
-    res.redirect(`/movies/${movieId}`)
-    
+    res.redirect(`/movies/${movieId}`);
   } catch (error) {
-    next(error)
+    next(error);
   }
-
-
-})
+});
 
 module.exports = router;

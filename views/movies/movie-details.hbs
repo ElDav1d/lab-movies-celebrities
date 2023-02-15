@@ -1,22 +1,20 @@
-<h1>Aqui los detalles de las pelis</h1>
-
-<h3>Titulo: {{detalles.title}}</h3>
-<h3>Genero: {{detalles.genre}}</h3>
-<h3>Trama: {{detalles.plot}}</h3>
-<h3>Elenco</h3>
+<h1>{{title}}</h1>
+<h3>Genre: {{genre}}</h3>
+<h3>Plot; {{plot}}</h3>
+<h3>Cast:</h3>
 <ul>
-
-  {{#each detalles.cast}}
+  {{#each cast}}
   <li>
-    <p>Nombre: {{this.name}}</p>
-    <p>Ocupacion: {{this.occupation}}</p>
-    <p>Frase: {{this.catchPhrase}}</p>
+    <p>Name: {{this.name}}</p>
+    <p>Ocuppation: {{this.occupation}}</p>
+    <p>Catch Phrase: {{this.catchPhrase}}</p>
   </li>
   {{/each}}
 
-  <a href="/movies/{{detalles._id}}/edit">UPDATE</a>
+  <a href="/movies/{{_id}}/edit">UPDATE</a>
   <br>
-  <form action="/movies/{{detalles._id}}/delete" method="post">
+  <br>
+  <form action="/movies/{{_id}}/delete" method="post">
     <button>DELETE</button>
   </form>
 </ul>
