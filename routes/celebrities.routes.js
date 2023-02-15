@@ -39,4 +39,31 @@ router.get("/:celebId", async (req, res, next) => {
   }
 });
 
+router.get("/:celebId/edit", async (req, res, next) => {
+  try {
+    const celebDetails = await Celebrity.findById(req.params.celebId);
+
+    res.render("celebrities/edit-celebrity.hbs", celebDetails);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post("/:celebId/edit", async (req, res, next) => {
+  const { celebId } = req.params;
+  const { name, occupation, catchPhrase } = req.body;
+
+  try {
+    await Celebrity.findByIdAndUpdate(celebId, {
+      name,
+      occupation,
+      catchPhrase,
+    });
+
+    res.redirect(`/celebrities/${celebId}`);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
