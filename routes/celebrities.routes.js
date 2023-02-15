@@ -29,4 +29,14 @@ router.post("/create", async (req, res, next) => {
   }
 });
 
+router.get("/:celebId", async (req, res, next) => {
+  try {
+    const celebDetails = await Celebrity.findById(req.params.celebId);
+
+    res.render("celebrities/celebrity-details.hbs", celebDetails);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;

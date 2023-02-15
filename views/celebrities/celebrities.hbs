@@ -1,7 +1,11 @@
 <h1>CELEBRITIES LIST</h1>
 
 <ul>
-    {{#each allCelebrities}}
-        <li>{{this.name}}</li>
-    {{/each}}
+  {{#each allCelebrities}}
+  <li>
+    <a href="/celebrities/{{this._id}}">
+      {{this.name}}
+    </a>
+  </li>
+  {{/each}}
 </ul>
