@@ -66,4 +66,13 @@ router.post("/:celebId/edit", async (req, res, next) => {
   }
 });
 
+router.post("/:celebId/delete", async (req, res, next) => {
+  try {
+    await Celebrity.findByIdAndDelete(req.params.celebId);
+    res.redirect("/celebrities");
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
