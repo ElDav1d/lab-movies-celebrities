@@ -10,7 +10,6 @@ router.get("/", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-  res.render("celebrities/celebrities.hbs");
 });
 
 router.get("/create", (req, res, next) => {
@@ -24,7 +23,7 @@ router.post("/create", async (req, res, next) => {
 
     res.redirect("/celebrities");
   } catch (error) {
-    res.redirect("celebrities/create");
+    res.redirect("/celebrities/create");
     next(error);
   }
 });
