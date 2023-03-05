@@ -4,9 +4,9 @@ const router = require("express").Router();
 
 router.get("/", async (req, res, next) => {
   try {
-    const movies = await Movie.find();
-    console.log(movies);
-    res.render("movies/movies.hbs", { movies });
+    const response = await Movie.find();
+
+    res.render("movies/movies.hbs", { allMovies: response });
   } catch (error) {
     next(error);
   }
@@ -31,6 +31,23 @@ router.post("/create", async (req, res, next) => {
   } catch (error) {
     next(error);
     res.redirect("/movies/create");
+  }
+});
+
+router.get("/:movieId", async (req, res, next) => {
+  const { movieId } = req.params;
+
+  try {
+    const movie = await Movie.findById(movieId).populate(
+      "cast",
+      "name occupation catchPhrase"
+    );
+
+    console.log(movie);
+
+    res.render("movies/movie-details.hbs", movie);
+  } catch (error) {
+    next(error);
   }
 });
 

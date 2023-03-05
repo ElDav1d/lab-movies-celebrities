@@ -1,0 +1,14 @@
+<h2>{{title}}</h2>
+<h3>GENRE: {{genre}}</h3>
+<h3>PLOT: {{plot}}</h3>
+<h3>CAST:</h3>
+<ul>
+    {{#each cast}}
+    <li>
+        <h4>NAME: {{this.name}}</h4>
+        <h4>OCCUPATION: {{this.occupation}}</h4>
+        <h4>CATCH PHRASE: {{this.catchPhrase}}</h4>
+    </li>
+
+    {{/each}}
+</ul>
