@@ -26,9 +26,13 @@ router.get("/create", async (req, res, next) => {
 });
 
 router.post("/create", async (req, res, next) => {
-  const { title, genre, plot, cast } = req.body;
+  const { title, genre, plot, cast, rating } = req.body;
   try {
-    await Movie.create({ title, genre, plot, cast });
+    await PostMovie.create({ title, genre, plot, cast, rating });
+
+    const movie = Movie.find;
+
+    movieAverage = ratings + nuevoRating / ratings.length + 1;
 
     res.redirect("/movies");
   } catch (error) {
@@ -50,12 +54,11 @@ router.get("/:movieId", async (req, res, next) => {
 
 router.get("/:movieId/edit", async (req, res, next) => {
   try {
-    const response = await Movie.findById(req.params.movieId).populate(
-      "cast",
-      "name"
-    );
+    const movie = await Movie.findById(req.params.movieId);
 
-    res.render("movies/edit-movie.hbs", response);
+    const celebs = await Celebrity.find();
+
+    res.render("movies/edit-movie.hbs", { movie, celebs });
   } catch (error) {
     next(error);
   }
