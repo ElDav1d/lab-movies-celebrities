@@ -2,7 +2,12 @@
 <ul>
     {{#each allMovies}}
     <li>
-        <a href="movies/{{this._id}}">{{this.title}}</a>
+        <a href="/movies/{{this._id}}">{{this.title}}</a>
+        <form action="/movies/{{this._id}}/delete">
+            <button>
+                DELETE
+            </button>
+        </form>
     </li>
     {{/each}}
 </ul>

@@ -43,9 +43,18 @@ router.get("/:movieId", async (req, res, next) => {
       "name occupation catchPhrase"
     );
 
-    console.log(movie);
-
     res.render("movies/movie-details.hbs", movie);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/:movieId/delete", async (req, res, next) => {
+  const { movieId } = req.params;
+
+  try {
+    await Movie.findByIdAndDelete(movieId);
+    res.redirect("/movies");
   } catch (error) {
     next(error);
   }
