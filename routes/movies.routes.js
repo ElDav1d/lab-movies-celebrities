@@ -60,4 +60,37 @@ router.get("/:movieId/delete", async (req, res, next) => {
   }
 });
 
+router.get("/:movieId/edit", async (req, res, next) => {
+  const { movieId } = req.params;
+
+  try {
+    const movie = await Movie.findById(movieId);
+
+    const celebResponse = await Celebrity.find().select("name");
+
+    const allCelebs = celebResponse.map((celeb) => ({
+      name: celeb.name,
+      isSelected: movie.cast.includes(celeb._id),
+    }));
+
+    res.render("movies/edit-movie.hbs", { movie, allCelebs });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post("/:movieId/edit", async (req, res, next) => {
+  const { movieId } = req.params;
+  const { title, genre, plot, cast } = req.body;
+
+  try {
+    await Movie.findByIdAndUpdate(movieId, { title, genre, plot, cast });
+
+    res.redirect("/movies");
+  } catch (error) {
+    res.redirect("/movies/:movieId/edit");
+    next(error);
+  }
+});
+
 module.exports = router;
